@@ -1,10 +1,32 @@
 <DOCTYPE html>
-<html>
+<html ng-app="parseQ">
 <head>
 	<title>ParseQ</title>
+	<link rel="stylesheet" href="main.css"></link>
 </head>
-<body>
+<body ng-controller="MainController">
+	<input ng-class="question" ng-model="question" placeholder="Question"></input>
+	<button ng-click="submit">Submit</button>
 
+	<div class = 'container'>
+			<div class="row">
+				<div class='queue enter'>
+					<div class = 'question' ng-repeat= "data in queue | filter: {status: 'red'}">
+						<div ng-click="escalate(q)">{{data.question}}</div>
+					</div>
+				</div>
+				<div class="queue helping">
+					<div class="question" ng-repeat="data in queue | filter: {status: 'yellow'}">
+						<div ng-click="delFromQ(q)">{{data.question}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<ng-view></ng-view>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+<script src="js/app.js"></script>
+<script src="controllers/MainController.js"></script>
+<script src="services/parseService.js"></script>
+<script src="js/defaultHeaders.js"></script>
 </body>
 </html>
